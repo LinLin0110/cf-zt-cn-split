@@ -89,6 +89,8 @@ DEFAULT_LOCAL_CIDRS = [
     {"address": "100.112.0.0/12",      "description": "100.96.0.0/12 Yes"},
     {"address": "198.18.0.0/15",     "description": "SurgeDNS"},
 ]
+    local_entries = DEFAULT_LOCAL_CIDRS if MODE == "exclude" else []
+    routes =  local_entries
 
 def update_split_tunnels(cidrs, domains):
     # 动态分配配额：域名取 TARGET_DOMAIN_N 条，剩余给 IP
@@ -98,8 +100,9 @@ def update_split_tunnels(cidrs, domains):
     # 域名规则在前（DNS 层优先命中），IP 规则在后（网络层兜底）
     domain_entries = [{"host":    d,    "description": "CN Domain"} for d    in domains[:max_domains]]
     ip_entries     = [{"address": cidr, "description": "CN IP"}     for cidr in cidrs[:max_ips]]  
-    local_entries = DEFAULT_LOCAL_CIDRS if MODE == "exclude" else []
-    routes =  ip_entries + local_entries
+    routes =  ip_entries 
+    
+
     
 
     #routes = domain_entries + ip_entries
