@@ -68,7 +68,7 @@ def get_cn_domains():
     print(f"   域名数据源获取到 {len(unique)} 条域名（已过滤非法格式）")
     return unique
 
-# Cloudflare 官方默认排除的 16 条本地局域网与保留网段
+# Cloudflare 官方默认排除的 16 条本地局域网
 DEFAULT_LOCAL_CIDRS = [
     {"address": "10.0.0.0/8",         "description": "Private network"},
     {"address": "169.254.0.0/16",     "description": "DHCP Unspecified"},
@@ -90,7 +90,6 @@ DEFAULT_LOCAL_CIDRS = [
     {"address": "198.18.0.0/15",     "description": "SurgeDNS"},
 ]
 
-
 def update_split_tunnels(cidrs, domains):
     # 动态分配配额：域名取 TARGET_DOMAIN_N 条，剩余给 IP
     max_domains = min(TARGET_DOMAIN_N, len(domains))
@@ -100,7 +99,8 @@ def update_split_tunnels(cidrs, domains):
     domain_entries = [{"host":    d,    "description": "CN Domain"} for d    in domains[:max_domains]]
     ip_entries     = [{"address": cidr, "description": "CN IP"}     for cidr in cidrs[:max_ips]]  
     local_entries = DEFAULT_LOCAL_CIDRS if MODE == "exclude" else []
-    routes = local_entries + domain_entries + ip_entries
+    routes =  ip_entries + local_entries
+    
 
     #routes = domain_entries + ip_entries
 
