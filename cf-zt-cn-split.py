@@ -72,7 +72,7 @@ def get_cn_domains():
 
 def update_split_tunnels(cidrs, domains):
     # Cloudflare 官方默认排除的 16 条本地局域网和自定义
-DEFAULT_LOCAL_CIDRS = [
+    DEFAULT_LOCAL_CIDRS = [
     {"address": "10.0.0.0/8",         "description": "Private network"},
     {"address": "169.254.0.0/16",     "description": "DHCP Unspecified"},
     {"address": "172.16.0.0/12",      "description": "Private network"},
