@@ -98,8 +98,8 @@ DEFAULT_LOCAL_CIDRS = [
     # 域名规则在前（DNS 层优先命中），IP 规则在后（网络层兜底）
     domain_entries = [{"host":    d,    "description": "CN Domain"} for d    in domains[:max_domains]]
     ip_entries     = [{"address": cidr, "description": "CN IP"}     for cidr in cidrs[:max_ips]]  
-    local_entries = DEFAULT_LOCAL_CIDRS
-    routes =  local_entries + ip_entries
+    local_entries = DEFAULT_LOCAL_CIDRS if MODE == "exclude" else []
+    routes = local_entries + domain_entries + ip_entries
     #routes = domain_entries + ip_entries
 
     print(f"   域名规则：{len(domain_entries)} 条 | IP 规则：{len(ip_entries)} 条 | 合计：{len(routes)} 条")
