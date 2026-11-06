@@ -91,6 +91,7 @@ def update_split_tunnels(cidrs, domains):
     {"address": "100.64.0.0/11",         "description": "100.96.0.0/12 Yes"},
     {"address": "100.112.0.0/12",      "description": "100.96.0.0/12 Yes"},
     {"address": "198.18.0.0/15",     "description": "SurgeDNS"},
+    {"address": "127.0.0.1/32",     "description": "sub.store"}
 ]
     # 动态分配配额：域名取 TARGET_DOMAIN_N 条，剩余给 IP
     max_domains = min(TARGET_DOMAIN_N, len(domains))
